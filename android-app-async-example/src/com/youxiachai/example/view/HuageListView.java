@@ -54,6 +54,19 @@ public class HuageListView extends Activity {
 			
 		}
 		
+		public void refresh(List<String> tempdata){
+			this.mData = tempdata;
+			notifyDataSetChanged();
+		}
+		
+		public void addData() {
+			for(int i = 0; i < 5; i++){
+				mData.add("http://qiniuphotos.qiniudn.com/gogopher.jpg");
+			}
+			
+			notifyDataSetChanged();
+		}
+		
 
 		@Override
 		public int getCount() {
@@ -100,7 +113,9 @@ public class HuageListView extends Activity {
 			huageImageUrl.add("http://qiniuphotos.qiniudn.com/gogopher.jpg");
 		}
 		
-		mHuageListView.setAdapter(new HuageAdapter(huageImageUrl, this));
+		final HuageAdapter huageAdapter = new HuageAdapter(huageImageUrl, this);
+		
+		mHuageListView.setAdapter(huageAdapter);
 		
 		mHuageListView.setPullRefreshEnable(new IXListViewRefreshListener() {
 			
@@ -110,6 +125,12 @@ public class HuageListView extends Activity {
 					
 					@Override
 					public void run() {
+						List<String> tempUrl = new ArrayList<String>();
+						for(int i = 0; i < 20; i++){
+							tempUrl.add("http://qiniuphotos.qiniudn.com/gogopher.jpg");
+						}
+						
+						huageAdapter.refresh(tempUrl);
 						mHuageListView.stopRefresh(String.format("%1$tF %1$tT", Calendar.getInstance()));
 					}
 				}, 2000);
@@ -117,7 +138,7 @@ public class HuageListView extends Activity {
 			}
 		});
 		
-		mHuageListView.setPreLoadCount(12);
+		mHuageListView.setPreLoadCount(5);
 		
 		mHuageListView.setPullLoadEnable(new IXListViewLoadMore() {
 			
@@ -128,6 +149,7 @@ public class HuageListView extends Activity {
 					
 					@Override
 					public void run() {
+						huageAdapter.addData();
 						mHuageListView.stopLoadMore();
 					}
 				}, 2000);
