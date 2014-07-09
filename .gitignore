@@ -1,0 +1,7 @@
+_Store
+bin
+gen
+.DS_Store
+lint.xml
+.settings
+build

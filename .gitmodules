@@ -1,0 +1,6 @@
+[submodule "OneXListview"]
+	path = OneXListview
+	url = git@github.com:youxiachai/OneXListview.git
+[submodule "android-app-async"]
+	path = android-app-async
+	url = git@github.com:youxiachai/android-app-async.git
